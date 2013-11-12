@@ -1,7 +1,13 @@
-# twilio
+# twilio-rest
 
 twilio.rest - a simple wrapper for the Twilio REST API.  
 twilio.messaging - a higher level messaging interface built on twilio.rest
+
+## Installing
+
+An initial version of this library was released on clojars, so just add the following to your Leiningnen project.clj:
+
+    :dependencies [[com.vitalreactor.twilio-rest "0.9.0"]]
 
 ## REST Usage
 

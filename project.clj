@@ -1,7 +1,8 @@
-(defproject com.vitalreactor.twilio "0.9.0"
+(defproject com.vitalreactor.twilio-rest "0.9.0"
   :min-lein-version "2.0.0"
   :description "Adapter library for the Twilio web service."
-  :url "http://github.com/vitalreactor/twilio"
+  :url "http://github.com/vitalreactor/twilio-rest"
+  :scm "http://github.com/vitalreactor/twilio-rest"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
