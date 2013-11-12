@@ -95,7 +95,7 @@
     :area-code <by country>
     :message-url <local URL for replies to numbers>
     :message-url-method <:get or :post>
-    :message-status <local URL>}
+    :message-status-url <local URL>}
   }
 
   Populates the namespace registry with the current state

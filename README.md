@@ -1,7 +1,7 @@
 # twilio-rest
 
 twilio.rest - a simple wrapper for the Twilio REST API.  
-twilio.messaging - a higher level messaging interface built on twilio.rest
+twilio.messages - a higher level messaging interface built on twilio.rest
 
 ## Installing
 
@@ -37,15 +37,15 @@ Get available numbers and assign to an account
 
 Send a message
 
-## Messaging Usage
+## Messages Usage
 
-The twilio.messaging namespace has a higher level interface for SMS
+The twilio.messages namespace has a higher level interface for SMS
 messaging applications that is somewhat opinionated about how to
 manage and use multiple accounts, allocate numbers, and assign 
 behaviors to specific numbers using applications.
 
     (ns my.cool.application
-	  (:require [twilio.messaging :as msg]))
+	  (:require [twilio.messages :as msg]))
 
 Connect the namespace to your master account
 
