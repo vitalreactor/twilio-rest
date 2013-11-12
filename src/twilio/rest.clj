@@ -463,7 +463,7 @@
       (create-resource acct PhoneNumbers
                        (assoc params :area_code code))))
   ([acct code]
-     (allocate-number acct code {})))
+     (add-number-by-code acct code {})))
 
 (defn set-application! [number application]
   (assert (and (instance? PhoneNumber number)))
