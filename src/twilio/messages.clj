@@ -38,7 +38,7 @@
   (:account (registry-entry name)))
 
 (defn accounts []
-  (map :account (vals registry)))
+  (map :account (vals @registry)))
 
 (defn application [name]
   (:application (registry-entry name)))
@@ -46,12 +46,11 @@
 (defn numbers [name]
   (:numbers (registry-entry name)))
   
-
 ;; Applications
 ;; ---------------------------------
 
-(defn- configured-application? [name app config]
-  (and (= (:friendly_name app) name)
+(defn- configured-application? [aname app config]
+  (and (= (:friendly_name app) (name aname))
        (= (:sms_url app) (:message-url config))
        (= (:sms_method app) (:message-url-method config))
        (= (:sms_status_callback app) (:message-status-url config))))
@@ -63,22 +62,22 @@
      :sms_method message-url-method
      :sms_status_callback message-status-url}))
 
-(defn- create-application [acct name config]
+(defn- create-application [acct aname config]
   (rest/create-resource acct rest/ApplicationList
-                        (app-config->fields name config)))
+                        (app-config->fields (name aname) config)))
 
-(defn- configure-application [app name config]
-  (rest/put! app (app-config->fields name config)))
+(defn- configure-application [app aname config]
+  (rest/put! app (app-config->fields (name aname) config)))
              
 (defn ensure-application 
   "Ensure application exists and is properly configured"
-  [name config]
-  (let [acct (account name)
-        app (or (application name) (rest/get-application acct name))
-        app (cond (nil? app) (create-application acct name config)
-                  (configured-application? app name config) app
-                  :default (configure-application app name config))]
-    (swap! registry update-in [name] merge {:application app})
+  [aname config]
+  (let [acct (account aname)
+        app (or (application aname) (rest/get-application acct aname))
+        app (cond (nil? app) (create-application acct aname config)
+                  (configured-application? aname app config) app
+                  :default (configure-application app aname config))]
+    (swap! registry update-in [aname] merge {:application app})
     app))
 
 
@@ -100,13 +99,13 @@
 
   Populates the namespace registry with the current state
   "
-  [name config]
-  (let [acct (or (account name)
-                 (rest/get-subaccount @master name)
-                 (rest/create-resource @master rest/Accounts name))]
-    (swap! registry update-in [name] merge {:account acct :config config})
-    (ensure-application name config)
-    (sync-numbers name)
+  [aname config]
+  (let [acct (or (account aname)
+                 (rest/get-subaccount @master (name aname))
+                 (rest/create-resource @master rest/Accounts (name aname)))]
+    (swap! registry update-in [aname] merge {:account acct :config config})
+    (ensure-application aname config)
+    (sync-numbers aname)
     acct))
     
 

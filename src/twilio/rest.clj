@@ -138,7 +138,7 @@
   (assoc request :throw-exceptions false))
 
 (defn- as-json [request]
-  (assoc request :content-type :json))
+  (assoc request :content-type "text/json"))
 
 (defn- postfix-json [url]
   (str url ".json"))
