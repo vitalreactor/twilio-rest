@@ -124,6 +124,7 @@
 ;;
 
 (def ^{:private true} api-base  "https://api.twilio.com/2010-04-01")
+(def debug? (atom false))
 
 (defn account? [acct]
   (and (:sid acct) (:auth_token acct)))
@@ -135,7 +136,7 @@
   (assoc request :basic-auth (as-auth acct)))
 
 (defn- with-debug [request]
-  (assoc request :throw-exceptions false))
+  (assoc request :throw-exceptions @debug?))
 
 (defn- as-json [request]
   (assoc request :content-type "text/json"))
