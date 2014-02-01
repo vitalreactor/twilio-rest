@@ -3,11 +3,16 @@
 twilio.rest - a simple wrapper for the Twilio REST API.  
 twilio.messages - a higher level messaging interface built on twilio.rest
 
+This is a work in progress and primarily used for an active in-house
+application so we actively maintain it, but only do new features as
+needed for our applications.  Pull requests for bug fixes or to expand
+the feature set are welcome.
+
 ## Installing
 
-An initial version of this library was released on clojars, so just add the following to your Leiningnen project.clj:
+Just add the following to your Leiningnen project.clj:
 
-    :dependencies [[com.vitalreactor.twilio-rest "0.9.0"]]
+    :dependencies [[com.vitalreactor.twilio-rest "0.9.1"]]
 
 ## REST Usage
 
@@ -32,17 +37,13 @@ Create or fetch an application
                           :sms_status_callback "https://myapp.foo.com/service/twilio/status"}))
     (def application (twilio/get-application subaccount "My Application"))
 
-Get available numbers and assign to an account
-
-
-Send a message
-
 ## Messages Usage
 
 The twilio.messages namespace has a higher level interface for SMS
-messaging applications that is somewhat opinionated about how to
+messaging applications that is highly opinionated about how to
 manage and use multiple accounts, allocate numbers, and assign 
-behaviors to specific numbers using applications.
+behaviors to specific numbers using applications.  It provides
+a good example of using the rest API for higher level operations.
 
     (ns my.cool.application
 	  (:require [twilio.messages :as msg]))
@@ -89,14 +90,14 @@ Get a new number, allocating if the list of already used numbers exhausts the al
 
 There are a number of good opportunities to improve the library
 
-  - Adding new nouns to the REST interface (should be straight forward).
+  - Adding new nouns to the REST interface (should be straight-forward).
   - Integrate clj-twilio's implementation support for TwiML 
   - Developing other higher level namespaces for different use cases
   - Improving test coverage
 
 ## License
 
-Copyright © 2013 Vital Reactor LLC
+Copyright © 2014 Vital Reactor LLC
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
