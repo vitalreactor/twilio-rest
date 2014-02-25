@@ -12,7 +12,7 @@ the feature set are welcome.
 
 Just add the following to your Leiningnen project.clj:
 
-    :dependencies [[com.vitalreactor.twilio-rest "0.9.1"]]
+    :dependencies [[com.vitalreactor.twilio-rest "0.9.2"]]
 
 ## REST Usage
 
