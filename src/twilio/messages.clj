@@ -73,7 +73,7 @@
   "Ensure application exists and is properly configured"
   [aname config]
   (let [acct (account aname)
-        app (or (application aname) (rest/get-application acct aname))
+        app (or (application aname) (rest/get-application acct (name aname)))
         app (cond (nil? app) (create-application acct aname config)
                   (configured-application? aname app config) app
                   :default (configure-application app aname config))]
@@ -154,11 +154,11 @@
   "Synchronize the registry with the server"
   ([]
      (map sync-twilio (keys registry)))
-  ([name]
-     (swap! registry update-in [name]
+  ([aname]
+     (swap! registry update-in [aname]
             (fn [registry-entry]
-              (let [acct (rest/get-subaccount @master name)
-                    app (rest/get-application acct name)
+              (let [acct (rest/get-subaccount @master (name aname))
+                    app (rest/get-application acct (name aname))
                     nums (rest/numbers acct)]
                 (merge registry-entry
                        {:account acct
