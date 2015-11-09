@@ -18,7 +18,9 @@
 
 (defonce master (atom nil))
 
-(defn configure! [sid token]
+(defn configure!
+  [sid token]
+  {:pre [(and sid token)]}
   (reset! master
           (rest/get (rest/map->Account {:sid sid :auth_token token}))))
 
